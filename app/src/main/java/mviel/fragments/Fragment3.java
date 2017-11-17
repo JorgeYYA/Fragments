@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,7 +29,7 @@ public class Fragment3 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    TextView count;
     private OnFragmentInteractionListener3 mListener;
 
     /**
@@ -59,6 +60,8 @@ public class Fragment3 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
 
@@ -67,6 +70,8 @@ public class Fragment3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_fragment3, container, false);
+        count = (TextView) v.findViewById(R.id.contador_text);
+        count.setText(""+MainActivity.fr2Click);
 
         return v;
     }

@@ -6,11 +6,13 @@ import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,6 +31,9 @@ public class Fragment2 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private FragmentManager fm;
     private FragmentTransaction ft;
+    int fr2Click = 0;
+    TextView count;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -52,10 +57,12 @@ public class Fragment2 extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     public Fragment2() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -64,6 +71,7 @@ public class Fragment2 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -75,21 +83,35 @@ public class Fragment2 extends Fragment {
 
         FrameLayout fl = (FrameLayout) v.findViewById(R.id.FrameLayout1);
 
+        View v3= inflater.inflate(R.layout.fragment_fragment3, container, false);
+        count = (TextView) v3.findViewById(R.id.contador_text);
+
+
         fl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fm = getFragmentManager();
                 ft = fm.beginTransaction();
-                //si
+
                 if (!mListener.estaFragment3EnActivity()) {
                     Toast.makeText(getContext(), "Mostrant Fragment3", Toast.LENGTH_SHORT).show();
-                    ft.add(R.id.canto_inferior_dret, Fragment3.newInstance("", ""));
+                    ft.add(R.id.canto_inferior_dret, Fragment3.newInstance("", "")).addToBackStack(null);
 
 
                 }else{
-                    Toast.makeText(getContext(), "Amagant Fragment3", Toast.LENGTH_SHORT).show();
-                    ft.remove(getActivity().getFragmentManager().findFragmentById(R.id.canto_inferior_dret));
+                    Toast.makeText(getContext(), "Aumentando contador", Toast.LENGTH_SHORT).show();
+
+                    ft.replace(R.id.canto_inferior_dret,Fragment3.newInstance("", "")).addToBackStack(null);
+                    //count.setText(""+MainActivity.fr2Click);
+                    /*ft.remove(getActivity().getFragmentManager().findFragmentById(R.id.canto_inferior_dret));*/
+
+
                 }
+
+
+
+                MainActivity.fr2Click++;
+                Log.d("cont",""+MainActivity.fr2Click);
                 ft.commit();
             }
     });
